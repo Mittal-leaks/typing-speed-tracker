@@ -1,0 +1,69 @@
+import random
+import time
+
+sentences = [
+    "The quick brown fox jumps over the lazy dog.",
+    "Python is an interpreted, high-level, general-purpose programming language.",
+    "Clean code always looks like it was written by someone who cares.",
+    "Data structures and algorithms are core fundamentals of computer science.",
+    "Simplicity is the soul of efficiency when writing functional scripts."
+]
+
+
+def calculate_speed(text, seconds):
+    if seconds == 0:
+        return 0
+
+    word_count = len(text.split())
+    minutes = seconds / 60
+    return round(word_count / minutes, 1)
+
+
+def calculate_accuracy(correct_text, typed_text):
+    correct = 0
+
+    for i in range(min(len(correct_text), len(typed_text))):
+        if correct_text[i] == typed_text[i]:
+            correct += 1
+
+    if len(correct_text) == 0:
+        return 0
+
+    return round((correct / len(correct_text)) * 100, 1)
+
+
+def start_test():
+    print("\nTyping Speed Test")
+    print("-----------------")
+
+    sentence = random.choice(sentences)
+
+    print("Type the sentence below:")
+    print(sentence)
+
+    input("\nPress Enter to start...")
+
+    start = time.time()
+    answer = input("\nType here: ")
+    end = time.time()
+
+    seconds = end - start
+
+    speed = calculate_speed(answer, seconds)
+    accuracy = calculate_accuracy(sentence, answer)
+
+    print("\nResults")
+    print("-------")
+    print("Time:", round(seconds, 2), "seconds")
+    print("Speed:", speed, "WPM")
+    print("Accuracy:", accuracy, "%")
+
+    if accuracy == 100:
+        print("Perfect!")
+    elif accuracy >= 80:
+        print("Good job!")
+    else:
+        print("You can improve with more practice.")
+
+
+start_test()
